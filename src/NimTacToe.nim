@@ -1,14 +1,16 @@
+## Tic-Tac-Toe implemented in nim
 import os
 import rdstdin
 import strutils
 import terminal
 import random
 randomize()
-proc newBoard(): array[3,array[3,string]] =
+proc newBoard*(): array[3,array[3,string]] =
+    ## Creates new board and returns it
     let board = [["null","null","null"],["null","null","null"],["null","null","null"]]
     return board
 
-proc printBoard(theBoard: array[3, array[3, string]]):void =
+proc printBoard*(theBoard: array[3, array[3, string]]):void =
     echo "---------"
     for i in 0..2:
         for m in 0..2:
@@ -32,7 +34,7 @@ proc printBoard(theBoard: array[3, array[3, string]]):void =
                 echo ""
     setForeGroundColor(fgDefault)
     echo "---------"
-proc isDraw(theBoard:array[3,array[3,string]]):bool =
+proc isDraw*(theBoard:array[3,array[3,string]]):bool =
     var occupiedCount:int = 0
     for i in 0..2:
         for f in 0..2:
@@ -44,12 +46,12 @@ proc isDraw(theBoard:array[3,array[3,string]]):bool =
         return true
     else:
         return false
-proc getMove():array[2,int] =
+proc getMove*():array[2,int] =
     let item1 = parseInt(readLineFromStdin "What is the first item?: ")
     let item2 = parseInt(readLineFromStdin "What is the second item?: ")
     let myArray = [item2-1,item1-1]
     return myArray
-proc makeMove(theBoard:var array[3,array[3,string]],playerIcon:string):array[3, array[3,string]] =
+proc makeMove*(theBoard:var array[3,array[3,string]],playerIcon:string):array[3, array[3,string]] =
     var moves = getMove()
     var x:int = moves[1]
     var y:int = moves[0]
@@ -59,7 +61,7 @@ proc makeMove(theBoard:var array[3,array[3,string]],playerIcon:string):array[3, 
         echo "Spot Taken!"
         var theBoard = makeMove(theBoard,playerIcon)
     return theBoard
-proc getPlayerTypes():array[2, string] =
+proc getPlayerTypes*():array[2, string] =
     echo "Welcome to Tic-Tac-Toe!"
     var choice1 = readLineFromStdin "Is player one a cpu or a normal player(cpu/play)?: "
     var choice2 = readLineFromStdin "Is player two a cpu or a normal(cpu/play)?: "
@@ -68,7 +70,7 @@ proc getPlayerTypes():array[2, string] =
         return output
     else:
         var x = getPlayerTypes()
-proc mainMenu():array[4, string] =
+proc mainMenu*():array[4, string] =
     var playerTypes = getPlayerTypes()
     var levels = [playerTypes[0], playerTypes[1], "null", "null"]
     if playerTypes[0] == "cpu":
@@ -78,14 +80,14 @@ proc mainMenu():array[4, string] =
         var level2 = readLineFromStdin "What level is the player2 cpu(0/1)?: "
         levels[3] = level2
     return levels
-proc lazyCpu(theBoard:var array[3, array[3,string]], playerIcon:string): array[3, array[3,string]] =
+proc lazyCpu*(theBoard:var array[3, array[3,string]], playerIcon:string): array[3, array[3,string]] =
     for i in 0..2:
         for j in 0..2:
             if theBoard[i][j] == "null":
                 theBoard[i][j] = playerIcon;
                 sleep 1000
                 return theBoard
-proc randomCpu(theBoard:var array[3,array[3,string]], icon:string):array[3,array[3,string]] =
+proc randomCpu*(theBoard:var array[3,array[3,string]], icon:string):array[3,array[3,string]] =
     for i in 0..2:
         for j in 0..2:
             var randomNum:int = rand(6)
@@ -100,7 +102,7 @@ proc randomCpu(theBoard:var array[3,array[3,string]], icon:string):array[3,array
                 theBoard[i][j] = icon;
                 sleep(1000)
                 return theBoard
-proc isGameOver(theboard:array[3,array[3,string]]): int = # Exit code 0 means player1 wins 1 is for player2 and 2 is game not over
+proc isGameOver*(theboard:array[3,array[3,string]]): int = ## Exit code 0 means player1 wins 1 is for player2 and 2 is game not over
     if (theboard[0][0] == "X" and theboard[0][1] == "X" and theboard[0][2] == "X") or
         (theboard[0][0] == "X" and theboard[1][0] == "X" and theboard[2][0] == "X") or
         (theboard[1][0] == "X" and theboard[1][1] == "X" and theboard[1][2] == "X") or
@@ -121,7 +123,7 @@ proc isGameOver(theboard:array[3,array[3,string]]): int = # Exit code 0 means pl
         return 1
     else:
         return 2
-proc main():void =
+proc main*():void =
     proc againOrNo():void =
         var prompt = readLineFromStdin "Do you want to play again(y/n)?: "
         if prompt == "y":
