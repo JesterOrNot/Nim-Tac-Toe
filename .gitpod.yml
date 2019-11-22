@@ -9,3 +9,7 @@ ports:
 tasks:
 - init: echo 'init script' # runs during prebuild
   command: echo 'start script'
+vscode:
+  extensions:
+    - kosz78.nim@0.6.4:J4mmxMK624S+XisrptVQ/Q==
+    - ms-vscode.cpptools@0.26.2-insiders:ZfaNmwBAkeWyphIu+nLlww==
