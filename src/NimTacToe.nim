@@ -10,6 +10,12 @@ proc newBoard*(): array[3,array[3,string]] =
     let board = [["null","null","null"],["null","null","null"],["null","null","null"]]
     return board
 
+proc victoryLine*(playerOneWin: bool): string =
+    let messages = ["Congrats 🎉", "Awesome!"]
+    if playerOneWin:
+        return "Player one wins! " & messages.rand()
+    return "Player two wins! " & messages.rand()
+
 proc printBoard*(theBoard: array[3, array[3, string]]):void =
     echo "---------"
     for i in 0..2:
@@ -170,11 +176,11 @@ proc main*():void =
                 break
             if isOver == 1:
                 sleep 100
-                echo "\nPlayer 2 Wins!"
+                echo victoryLine(false)
                 break
             elif isOver == 0:
                 sleep 100
-                echo "\nPlayer 1 Wins"
+                echo victoryLine(true)
                 break
     finally:
         againOrNo()
