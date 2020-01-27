@@ -11,7 +11,7 @@ proc newBoard*(): array[3,array[3,string]] =
     return board
 
 proc victoryLine*(playerOneWin: bool): string =
-    let messages = ["Congrats 🎉", "Awesome!"]
+    let messages = ["Congrats 🎉", "Awesome!", "Victory!!!"]
     if playerOneWin:
         return "Player one wins! " & messages.rand()
     return "Player two wins! " & messages.rand()
